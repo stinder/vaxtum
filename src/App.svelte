@@ -64,9 +64,9 @@
 		margin: auto;
 	}
 	.thing {
-		background-color: rgb(19, 143, 133);
+		background-color: rgb(118, 173, 194);
 		color: white;
-		width: 14em;
+		width: 16em;
 		float: left;
 		margin: 0.5em;
 		padding: 1em;
