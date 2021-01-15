@@ -3,7 +3,8 @@
 	import Papa from "papaparse";
 
 	let url = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv"
-	let data = [];
+	let headlines = [];
+	let trends = {};
 
 	// selects one element from each group
 	// key_fn identifies group
@@ -22,9 +23,15 @@
 		return interesting_countries.includes(elem["location"])
 	}
 
+	// maps values linearly between the floor and ceiling
+	let rescale = function(values, floor, ceiling) {
+	  let min = Math.min(...values);
+	  let max = Math.max(...values);
+	  return(values.map(v => { return((v-min)/(max-min) * (ceiling-floor) + floor) }));
+	}
+
 	Papa.parse(url, {download:true, header: true, complete: function(results) {
 		let parsed = results.data.map(row => {
-			console.log(row)
 			row.date = new Date(row.date);
 			return(row)
 		}).filter(row => {
@@ -33,18 +40,36 @@
 
 		let filtered = parsed.filter(select_countries)
 
-		data = one_from_group(
+		headlines = one_from_group(
 			filtered,
-			//function(e) { return(e.location) },
 			element => { return(element.location) },
 			(a,b) => { return(a.date > b.date ? a : b) }
 		);
+
+		filtered.forEach(({location, daily_vaccinations}) => {
+			let value = Number(daily_vaccinations);
+			trends[location] = location in trends ? trends[location].concat(value) : [value];
+		})
+
+		for(var location in trends) {
+			trends[location] = rescale(trends[location],0,100);
+			if(isNaN(trends[location][0])) {
+				trends[location] = [];
+			}
+		}
 	}});
 </script>
 
 <section>
-	{#each data as { location, total_vaccinations, total_vaccinations_per_hundred, state }, i}
+	{#each headlines as { location, total_vaccinations, total_vaccinations_per_hundred, state }, i}
 	<div class="thing">
+		<svg>
+			<g>
+				{#each trends[location] as y, i}
+				<rect x='{i*100/trends[location].length}%' y='{100-y}%' width='{100/ trends[location].length}%' height='{y}%'></rect>
+				{/each}
+			</g>
+		</svg>
 		<h1>
 			{location}
 		</h1>
@@ -59,28 +84,26 @@
 </section>
 
 <style>
-	section {
-		max-width: 80%;
-		margin: auto;
-	}
 	.thing {
 		background-color: rgb(118, 173, 194);
 		color: white;
 		width: 16em;
-		float: left;
 		margin: 0.5em;
 		padding: 1em;
 		border-radius: 4px;
+		display: inline-block;
+		position: relative;
 	}
 
 	.thing > * {
+		position: relative;
 		color: white;
 		font-family: "Roboto";
 	}
 
 	.thing > h1 {
 		text-transform: uppercase;
-		font-size: 0.8em;
+		font-size: 1em;
 		text-align: left;
 	}
 
@@ -93,7 +116,19 @@
 
 	.thing > h3 {
 		font-family: "Roboto Mono", "Mono";
-		font-size: 1em;
+		font-size: 1.2em;
 		text-align: right;
+	}
+
+	.thing > svg {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+	}
+
+	.thing > svg > g > rect {
+		fill:rgb(138, 193, 214)
 	}
 </style>
