@@ -104,7 +104,7 @@
 	.thing > * {
 		position: relative;
 		color: white;
-		font-family: "Roboto";
+		font-family: "Roboto", sans-serif;
 	}
 
 	.thing > h1 {
@@ -114,7 +114,7 @@
 	}
 
 	.thing > h2 {
-		font-family: "Roboto Slab";
+		font-family: "Roboto Slab", serif;
 		font-size: 3em;
 		font-weight: 900;
 		text-align: center;
@@ -122,7 +122,7 @@
 	}
 
 	.thing > h3 {
-		font-family: "Roboto Mono", "Mono";
+		font-family: "Roboto Mono", monospace;
 		font-size: 1.2em;
 		text-align: right;
 	}
