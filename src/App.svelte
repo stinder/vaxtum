@@ -118,7 +118,7 @@
 		font-size: 3em;
 		font-weight: 900;
 		text-align: center;
-		margin: 0.5em 0 0.5em 0;
+		margin: 0.75em 0 0.75em 0;
 	}
 
 	.thing > h3 {
