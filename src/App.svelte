@@ -1,10 +1,22 @@
 <script>
 	//import 'bulma/css/bulma.css';
 	import Papa from "papaparse";
+    import Location from "./Location.svelte";
+	let showLocationModal = false;
+	let location_name;
+	
+	let showLocation = function(name) {
+		location_name = name;
+		showLocationModal = true;
+	}
 
 	let url = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv"
 	let headlines = [];
 	let trends = {};
+
+	let location_by_name = function(data, name) {
+		return data.find(n => n.location===name)
+	}
 
 	// selects one element from each group
 	// key_fn identifies group
@@ -62,7 +74,7 @@
 
 <section>
 	{#each headlines as { location, total_vaccinations, total_vaccinations_per_hundred, state }, i}
-	<div class="thing">
+	<div class="thing" on:click="{showLocation(location)}">
 		<svg>
 			<g>
 				{#each trends[location] as y, i}
@@ -141,3 +153,8 @@
 		fill:rgb(138, 193, 214);
 	}
 </style>
+
+{#if showLocationModal}
+	<Location {...location_by_name(headlines,location_name)} on:close="{() => showLocationModal = false}">
+	</Location>
+{/if}
