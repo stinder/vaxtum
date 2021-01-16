@@ -84,15 +84,21 @@
 </section>
 
 <style>
+	section {
+		position: relative;
+	}
 	.thing {
 		background-color: rgb(118, 173, 194);
 		color: white;
 		width: 16em;
-		margin: 0.5em;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 1em;
 		padding: 1em;
-		border-radius: 4px;
-		display: inline-block;
+		border-radius: 1em;
+		display: block;
 		position: relative;
+		overflow: hidden;
 	}
 
 	.thing > * {
@@ -112,6 +118,7 @@
 		font-size: 3em;
 		font-weight: 900;
 		text-align: center;
+		margin: 0.75em 0 0.75em 0;
 	}
 
 	.thing > h3 {
@@ -126,9 +133,11 @@
 		left: 0;
 		display: block;
 		width: 100%;
+		height: 100%;
 	}
 
 	.thing > svg > g > rect {
-		fill:rgb(138, 193, 214)
+		position: relative;
+		fill:rgb(138, 193, 214);
 	}
 </style>
