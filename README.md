@@ -1,9 +1,12 @@
-# Vaxtum
+# Corona Entwarn App
 
 COVID-19 Vaccination Counter built with [Svelte](https://svelte.dev).
 
 Visit [vaxtum.netlify.app](https://vaxtum.netlify.app/).
 
+This website's sole purpose is to list the number of people vaccinated againsty covid 19 in countries that are interesting for the engineers who built the app. This is supposed to be some good news durig these tough times.
+
+The data is taken from the [covid 19 dataset](https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations) by _Our world in Data_
 
 ## Installation and development
 
