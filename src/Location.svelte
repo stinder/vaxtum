@@ -6,6 +6,12 @@
 	export let daily_vaccinations;
 	export let total_vaccinations_per_hundred;
 
+	export let people_fully_vaccinated;
+	export let people_fully_vaccinated_per_hundred;
+	export let daily_vaccinations_per_million;
+	export let people_vaccinated;
+
+
 	let location_by_name = function(data, name) {
 		return data.find(n => n.location===name)
 	}
@@ -62,10 +68,18 @@
 		<p class="value">{date.toDateString()}</p>
 		<p class="label">Number of vaccinations (single doses)</p> 
 		<p class="value">{Number(total_vaccinations).toLocaleString()}</p>
+		<p class="label">Number of vaccinations per hundred (single doses)</p> 
+		<p class="value">{total_vaccinations_per_hundred}</p>
 		<p class="label">Daily vaccinations (7-day smoothed)</p>
 		<p class="value">{Number(daily_vaccinations).toLocaleString()}	</p>
-		<p class="label">Population vaccinated in percent</p> 
-		<p class="value">{total_vaccinations_per_hundred}%</p>
+		<p class="label">Daily vaccinations per million</p> 
+		<p class="value">{daily_vaccinations_per_million}</p>
+		<p class="label">People vaccinated (1 or 2 doses)</p> 
+		<p class="value">{Number(people_vaccinated).toLocaleString()}</p>
+		<p class="label">People fully vaccinated</p> 
+		<p class="value">{Number(people_fully_vaccinated).toLocaleString()}</p>
+		<p class="label">People fully vaccinated per hundred</p> 
+		<p class="value">{people_fully_vaccinated_per_hundred}</p>
 	</div>
 	<hr>
 	<button autofocus on:click={close}>close</button>
@@ -110,8 +124,8 @@
 
 	.details > .label {
 		font-family: "Roboto";
-		font-size: 1em;
-		margin-top: 1em;;
+		font-size: 0.9em;
+		margin-top: 0.8em;;
 	}
 
 	.details > .value {

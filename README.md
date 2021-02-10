@@ -1,4 +1,4 @@
-# Corona Entwarn App
+# Corona Entwarn App (Vaxtum)
 
 COVID-19 Vaccination Counter built with [Svelte](https://svelte.dev).
 
