@@ -88,9 +88,6 @@
 		<h2>
 			{Number(total_vaccinations).toLocaleString()}	
 		</h2>
-		<h3>
-			{total_vaccinations_per_hundred}%
-		</h3>
 	</div>
 	{/each}
 </section>
